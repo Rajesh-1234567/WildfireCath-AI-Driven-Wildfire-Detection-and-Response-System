@@ -1,5 +1,6 @@
 # WildfireCath - An AI Driven Wildfire Detection and Response System
-![ForestFire image](WildfireCath-AI-Driven-Wildfire-Detection-and-Response-System/image.png)
+<img src="image.png" alt="ForestFire image" width="1000" height="500">
+
 
 Data set Link - https://www.kaggle.com/datasets/abdelghaniaaba/wildfire-prediction-dataset
 

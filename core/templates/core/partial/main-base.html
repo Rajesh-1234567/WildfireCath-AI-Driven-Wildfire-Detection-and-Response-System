@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "core/elements/main-style.html" %}
+
+    {% block appstyling %}
+    {% endblock appstyling %}
+</head>
+<body>
+    {% block mainapp %}
+    {% endblock mainapp %}
+
+    {% include "core/elements/background.html" %}
+</body>
+    {% include "core/elements/main-script.html" %}
+
+    {% block appscripting %}
+    {% endblock appscripting %}
+</html>

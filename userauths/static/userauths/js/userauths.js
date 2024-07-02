@@ -15,12 +15,6 @@ document.querySelectorAll('.animate-input').forEach(e => {
         } else {
             e.classList.remove('active')
         }
-
-        if (checkSigninInput()) {
-            signin_btn.removeAttribute('disabled')
-        } else {
-            signin_btn.setAttribute('disabled', 'true')
-        }
     }
     // show password button
     if (button) {

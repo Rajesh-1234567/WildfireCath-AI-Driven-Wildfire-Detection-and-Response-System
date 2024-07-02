@@ -1,0 +1,48 @@
+{% extends 'core/partial/base.html' %}
+{% load static %}
+
+{% block index %}
+
+<div class="navbar" id="navbar">
+    <div class="logo">
+        <a href="#" style="font-size: 20px;">Wildfire</a>
+    </div>
+    <div class="nav-links pc-navlinks">
+        <a href="{% url 'userauths:sign-in' %}">Login</a>
+        <a href="#features">Features</a>
+        <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-links mobile-navlinks">
+        <a href="#">Login</a>
+        <a href="#features">Features</a>
+        <a href="#contact">Contact</a>
+    </div>
+
+    <div class="mobile-menu-toggle">
+        <div class="hamburger-menu">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </div>
+</div>
+<script>
+    document.querySelector('.hamburger-menu').addEventListener('click', function() {
+        var links = document.querySelector(".mobile-navlinks");
+        var hamburger = document.querySelector(".hamburger-menu");
+        if (links.style.display === "flex") {
+            links.style.display = "none";
+            hamburger.classList.remove("cross");
+        } else {
+            links.style.display = "flex";
+            hamburger.classList.add("cross");
+        }
+    });
+</script>
+<div class="container">
+    <h1 style="font-weight: 800;">Welcome to Wildfire Prevention</h1>
+    <p>Explore the Information and tools <br>regarding wildfire preventions.</p>
+    <a href="{% url 'userauths:sign-in' %}" class="cta-button">Explore Now</a>
+</div>
+
+{% endblock index %}

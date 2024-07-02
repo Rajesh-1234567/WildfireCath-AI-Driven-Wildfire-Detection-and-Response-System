@@ -44,13 +44,12 @@ INSTALLED_APPS = [
     # django import and export database in suitable formats csv,excel and many others
     'import_export',
 
-    'core',
-    
     # installed authentication app
     'userauths',
 
     # installed custom apps
-
+    'core',
+    'home',
 ]
 
 MIDDLEWARE = [

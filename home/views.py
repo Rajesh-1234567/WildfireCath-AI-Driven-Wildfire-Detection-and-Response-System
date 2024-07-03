@@ -17,10 +17,10 @@ def loading(request):
     if request.method == "POST":
         latitude = request.POST.get('latitude')
         longitude = request.POST.get('longitude')
+        weather_data=get_weather_data(latitude,longitude)
         # print(latitude)
         # print(longitude)
-        request.session['latitude'] = latitude
-        request.session['longitude'] = longitude
+        request.session['weather_data'] = weather_data
         return redirect("home:home")
     else:
         latitude = 22.7179
@@ -29,10 +29,7 @@ def loading(request):
 
 
 def home(request):
-    latitude = request.session.get('latitude')
-    longitude = request.session.get('longitude')
-
-    weather_data=get_weather_data(latitude,longitude)
+    weather_data = request.session.get('weather_data')
 
     # Convert temperatures to Celsius
     weather_data['main']['temp'] = kelvin_to_celsius(weather_data['main']['temp'])

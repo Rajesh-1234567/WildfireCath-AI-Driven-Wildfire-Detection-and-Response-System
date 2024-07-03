@@ -2,7 +2,18 @@
 {% load static %}
 
 {% block index %}
-
+<script>
+    window.onload = function () {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                document.getElementById("id_latitude").value = position.coords.latitude;
+                document.getElementById("id_longitude").value = position.coords.longitude;
+            });
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    };
+</script>
 <!-- navbar -->
 <nav class="main-menu" style="padding-left: 0;">
     <ul>
@@ -95,8 +106,34 @@
         </li>
     </ul>
 </nav>
+
 <div class="container-content">
-    
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Weather Data for {{ weather_data.name }}</h1>
+            <p>Latitude: {{ weather_data.coord.lat }}</p>
+            <p>Longitude: {{ weather_data.coord.lon }}</p>
+            <p>Weather: {{ weather_data.weather.0.description }}</p>
+            <p>Temperature: {{ weather_data.main.temp }} K</p>
+            <p>Feels Like: {{ weather_data.main.feels_like }} K</p>
+            <p>Pressure: {{ weather_data.main.pressure }} hPa</p>
+            <p>Humidity: {{ weather_data.main.humidity }} %</p>
+            <p>Visibility: {{ weather_data.visibility }} meters</p>
+            <p>Wind Speed: {{ weather_data.wind.speed }} m/s</p>
+            <p>Wind Direction: {{ weather_data.wind.deg }} degrees</p>
+            <p>Cloudiness: {{ weather_data.clouds.all }} %</p>
+            <p>Rain Volume (last hour): {{ weather_data.rain.1h }} mm</p>
+            <p>Sunrise: {{ weather_data.sys.sunrise }}</p>
+            <p>Sunset: {{ weather_data.sys.sunset }}</p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="card col-md-4">
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock index %}

@@ -1,0 +1,57 @@
+{% extends 'home/partial/base.html' %}
+{% load static %}
+
+{% block index %}
+
+<div class="loader">
+    <div class="three-body">
+        <div class="three-body__dot"></div>
+        <div class="three-body__dot"></div>
+        <div class="three-body__dot"></div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+
+                // Create a form and submit the latitude and longitude
+                var form = document.createElement("form");
+                form.setAttribute("method", "post");
+                form.setAttribute("action", "/home/loading...");
+
+                var latInput = document.createElement("input");
+                latInput.setAttribute("type", "hidden");
+                latInput.setAttribute("name", "latitude");
+                latInput.setAttribute("value", latitude);
+                form.appendChild(latInput);
+
+                var lonInput = document.createElement("input");
+                lonInput.setAttribute("type", "hidden");
+                lonInput.setAttribute("name", "longitude");
+                lonInput.setAttribute("value", longitude);
+                form.appendChild(lonInput);
+
+                // Add CSRF token input
+                var csrfToken = "{{ csrf_token }}";
+                var csrfInput = document.createElement("input");
+                csrfInput.setAttribute("type", "hidden");
+                csrfInput.setAttribute("name", "csrfmiddlewaretoken");
+                csrfInput.setAttribute("value", csrfToken);
+                form.appendChild(csrfInput);
+
+                document.body.appendChild(form);
+                form.submit();
+            }, function (error) {
+                console.error("Error getting location: ", error);
+            });
+        } else {
+            console.error("Geolocation is not supported by this browser.");
+        }
+    });
+</script>
+
+{% endblock index %}

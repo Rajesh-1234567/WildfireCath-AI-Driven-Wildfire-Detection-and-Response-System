@@ -6,7 +6,11 @@
     {% block appstyling %}
     {% endblock appstyling %}
 </head>
-<body>
+<body 
+{% if request.path == "/user/sign-in/" or request.path == "/user/sign-up/" %}
+style="background-image: url('../../../static/userauths/images/forest.jpeg');background-size: cover;background-position: center;"
+{% endif %}
+>
     {% block mainapp %}
     {% endblock mainapp %}
 

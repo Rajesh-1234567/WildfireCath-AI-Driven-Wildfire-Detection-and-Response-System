@@ -9,12 +9,12 @@
     </div>
     <div class="nav-links pc-navlinks">
         <a href="{% url 'userauths:sign-in' %}">Login</a>
-        <a href="#features">Features</a>
+        <a href="#Team">Team</a>
         <a href="#contact">Contact</a>
     </div>
     <div class="nav-links mobile-navlinks">
         <a href="#">Login</a>
-        <a href="#features">Features</a>
+        <a href="#Team">Team</a>
         <a href="#contact">Contact</a>
     </div>
 
@@ -27,7 +27,7 @@
     </div>
 </div>
 <script>
-    document.querySelector('.hamburger-menu').addEventListener('click', function() {
+    document.querySelector('.hamburger-menu').addEventListener('click', function () {
         var links = document.querySelector(".mobile-navlinks");
         var hamburger = document.querySelector(".hamburger-menu");
         if (links.style.display === "flex") {
@@ -39,10 +39,84 @@
         }
     });
 </script>
-<div class="container">
-    <h1 style="font-weight: 800;">Welcome to Wildfire Prevention</h1>
-    <p>Explore the Information and tools <br>regarding wildfire preventions.</p>
-    <a href="{% url 'userauths:sign-in' %}" class="cta-button">Explore Now</a>
-</div>
 
+<div class="container-fluid row" style="position: fixed;height: 100vh;top: 0;padding: 0;">
+    <div class="back-contain col-md-7">
+        {% include "core/elements/background.html" %}
+    </div>
+    <div class="container welcome-info col-md-5">
+        <h1 style="font-weight: 800;">Welcome to Wildfire Prevention</h1>
+        <p>Explore the Information and tools <br>regarding wildfire preventions.</p>
+        <a href="{% url 'userauths:sign-in' %}" class="cta-button" style="z-index: 999;">Explore Now</a>
+    </div>
+</div>
+<div class="space" style="height: 100vh;z-index: -10;pointer-events: none;"></div>
+<!-- other contents -->
+<div class="container-fluid" style="background-color: white;margin-top: 80px;position: sticky;
+box-shadow: 0px -1px 5px rgba(255, 255, 255, 1.00),
+  0px -2px 20px rgba(255, 255, 255, 1.00),
+  0px -5px 46px rgba(255, 255, 255, 1.00),
+  0px -8px 82px rgba(255, 255, 255, 1.00),
+  0px -13px 128px rgba(255, 255, 255, 1.00),
+  0px -18px 184px rgba(255, 255, 255, 1.00);
+">
+
+    <section class="container-fluid">
+        <div class="row" style="padding-top: 30px;">
+            <div class="col-md-6 fireprevent">
+                <img src="../../../static/core/image/fireprevent.jpeg" alt="">
+            </div>
+            <div class="col-md-6">
+                <h2 style="color: #7c2e08;font-weight: 700;">Why Wildfire Prevention ?</h2>
+                <p style="padding-top: 0;">Preventable wildfires are a significant concern due to their impact on lives,
+                    property, and natural resources. Here’s why wildfire prevention matters:</p>
+                <li>Human-Caused Fires: 87 percent of all wildfires are caused by human activities1. Most of these fires
+                    can be avoided through responsible behavior.</li>
+                <li>Threat to Lives and Property: Wildfires endanger communities, homes, and infrastructure. Preventing
+                    them reduces the risk of loss and harm.</li>
+                <li>Preserving Natural Resources: Forests, wildlife habitats, and ecosystems are at risk during
+                    wildfires. Prevention helps protect our environment.</li>
+            </div>
+        </div>
+    </section>
+    <br><br>
+    <h2 class="mt-4" style="text-align: center;color: #7c2e08;font-weight: 700;">About Team</h2>
+    <section class="container-fluid">
+
+        <div class="row mt-4">
+            <div class="col-md-4" style="background-color: transparent;">
+                <div class="card contro-card" style="width: 100%;background-color: transparent;">
+                <img src="../../../static/core/image/fireprevent.jpeg" class="card-img-top" alt="">
+                <div class="card-body">
+                    <h5 class="card-title">Anurag Singh</h5>
+                    <a href="#" class="btn contro-btn">EEE</a>
+                    <a href="#" class="btn contro-btn">2nd Year</a>
+                    <a href="#" class="btn contro-btn">Full Stack Web</a>
+                </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <img src="" alt="">
+            </div>
+        </div>
+    </section>
+    <section class="container-fluid">
+        <div id="form">
+            <form action="" id="contact">
+                <div class="col-md-12">
+                    <h2>Contact Form</h2>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                            placeholder="Enter the Message..."></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
 {% endblock index %}

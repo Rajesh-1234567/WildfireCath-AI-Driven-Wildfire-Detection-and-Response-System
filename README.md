@@ -33,3 +33,4 @@ Local Communities and Residents:
 
 Forestry Departments: To monitor forest areas for early detection of wildfires, assess environmental impact, and plan reforestation efforts.
 Disaster Management Authorities: For comprehensive situational awareness, resource allocation, and post-incident recovery planning.
+

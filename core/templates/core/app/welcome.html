@@ -63,8 +63,8 @@ box-shadow: 0px -1px 5px rgba(255, 255, 255, 1.00),
 
     <section class="container-fluid">
         <div class="row" style="padding-top: 30px;">
-            <div class="col-md-6 fireprevent">
-                <img src="../../../static/core/image/fireprevent.jpeg" alt="">
+            <div class="col-md-6 fireprevent h-100">
+                <img src="../../../static/core/image/fireprevent.jpeg" alt="" style="max-height: 400px;">
             </div>
             <div class="col-md-6">
                 <h2 style="color: #7c2e08;font-weight: 700;">Why Wildfire Prevention ?</h2>
@@ -84,20 +84,19 @@ box-shadow: 0px -1px 5px rgba(255, 255, 255, 1.00),
     <section class="container-fluid">
 
         <div class="row mt-4">
+            {% for teamdetail in teamdetails %}
             <div class="col-md-4" style="background-color: transparent;">
                 <div class="card contro-card" style="width: 100%;background-color: transparent;">
-                <img src="../../../static/core/image/fireprevent.jpeg" class="card-img-top" alt="">
+                <img src="{{ teamdetail.image.url }}" class="card-img-top" alt="">
                 <div class="card-body">
-                    <h5 class="card-title">Anurag Singh</h5>
-                    <a href="#" class="btn contro-btn">EEE</a>
-                    <a href="#" class="btn contro-btn">2nd Year</a>
-                    <a href="#" class="btn contro-btn">Full Stack Web</a>
+                    <h5 class="card-title">{{ teamdetail.name }}</h5>
+                    <a href="#" class="btn contro-btn">{{ teamdetail.branch }}</a>
+                    <a href="#" class="btn contro-btn">{{ teamdetail.year }}</a>
+                    <a href="#" class="btn contro-btn">{{ teamdetail.role }}</a>
                 </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <img src="" alt="">
-            </div>
+            {% endfor %}
         </div>
     </section>
     <section class="container-fluid">

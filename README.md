@@ -4,7 +4,7 @@
 
 ## Data set Link - https://www.kaggle.com/datasets/abdelghaniaaba/wildfire-prediction-dataset
 
-## Google colab - https://colab.research.google.com/drive/19VZK6VSiMGP5gxGrWsYkdciatFNyOpmD?usp=sharing
+## Google colab - https://github.com/Rajesh-1234567/WildfireCath-AI-Driven-Wildfire-Detection-and-Response-System
 
 WildfireCath is an advanced system designed to detect and respond to forest wildfires using artificial intelligence. It works by using a machine learning model trained on a large amount of geospatial remote sensing images to identify wildfires in real-time. The system runs continuously, checking for fires every five minutes.
 

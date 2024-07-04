@@ -1,4 +1,4 @@
-# WildfireCath - An AI Driven Wildfire Detection and Response System
+# WildfireCatch - An AI Driven Wildfire Detection and Response System
 <img src="image.png" alt="ForestFire image" width="1000" height="500">
 
 

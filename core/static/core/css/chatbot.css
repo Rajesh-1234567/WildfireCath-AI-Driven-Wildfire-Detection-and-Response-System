@@ -275,8 +275,8 @@
 
 .btn-warning {
     color: #fff;
-    background-color: #113529;
-    border-color: #113529;
+    background-color: black;
+    border-color: black;
 } 
 
 .chatbot_btn span{
@@ -293,5 +293,6 @@
 
 .btn-warning:hover{
     background-color: #83350b;
+    color: white;
     border: 1px solid #113529;
 }

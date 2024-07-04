@@ -14,6 +14,118 @@ style="background-image: url('../../../static/userauths/images/forest.jpeg');bac
     {% block mainapp %}
     {% endblock mainapp %}
 
+    <!-- chatbot -->
+    <div class="chatbot_btn" onclick="turnChat()">
+        <span class="material-symbols-outlined" style="font-size: 1.7em;">contact_support</span>
+    </div>
+    <div class="page-content page-container" id="page-content">
+        <div class="col-md-12">
+            <div class="box box-warning direct-chat direct-chat-warning" style="border-radius: .4em; margin: 0;">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Assistant</h3>
+                    <div class="box-tools pull-right">
+                        <span onclick="offChat()" type="button" class="btn-box-tool material-symbols-outlined" data-widget="remove"> close </span>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="direct-chat-messages">
+                        <div class="direct-chat-msg">
+                            <div class="direct-chat-info clearfix">
+                                <span class="direct-chat-name pull-left">Assistant</span>
+                            </div>
+                            <img loading="lazy" class="direct-chat-img" src="../../../static/core/image/bot.jpeg" alt="message user image">
+                            <div class="chat-display">
+                                <div class="direct-chat-text-ai direct-chat-text">Welcome to Wildfire prevention, How may I help you!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <div class="input-group">
+                        <input type="text" id="user-input" name="message" placeholder="Type Message ..." class="form-control">
+                        <span class="input-group-btn">
+                            <button type="button" onclick="sendMessage()" class="btn btn-warning btn-flat" style="width: 5em;">Send</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const chatToggle = document.querySelector('.page-content');
+        const chatbtnToggle = document.querySelector('.chatbot_btn');
+        const sendMessageUrl = "{% url 'core:send_message' %}";
+
+        function turnChat() {
+            chatToggle.style.display = "block";
+            chatbtnToggle.style.display = "none";
+        }
+
+        function offChat() {
+            chatToggle.style.display = "none";
+            chatbtnToggle.style.display = "block";
+        }
+
+        function sendMessage() {
+            const userInput = document.getElementById('user-input').value;
+            const chatDisplay = document.querySelector('.direct-chat-messages');
+
+            // Display user's message
+            chatDisplay.innerHTML += `
+                <div class="direct-chat-msg right">
+                    <div class="direct-chat-info clearfix">
+                        <span class="direct-chat-name pull-right">You</span>
+                    </div>
+                    <img loading="lazy" class="direct-chat-img" src="../../../static/core/image/default.png" alt="message user image">
+                    <div class="chat-display">
+                        <div class="direct-chat-text">${userInput}</div>
+                    </div>
+                </div>`;
+
+            // Send message to backend
+            fetch(sendMessageUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify({ message: userInput })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display assistant's response
+                chatDisplay.innerHTML += `
+                    <div class="direct-chat-msg">
+                        <div class="direct-chat-info clearfix">
+                            <span class="direct-chat-name pull-left">Assistant</span>
+                        </div>
+                        <img loading="lazy" class="direct-chat-img" src="../../../static/core/image/bot.jpeg" alt="message user image">
+                        <div class="chat-display">
+                            <div class="direct-chat-text">${data.reply}</div>
+                        </div>
+                    </div>`;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // CSRF token for Django
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+
 </body>
     {% include "core/elements/main-script.html" %}
 

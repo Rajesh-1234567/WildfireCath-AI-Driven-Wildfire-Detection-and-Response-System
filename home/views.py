@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from datetime import datetime
 from home.api_calls.weatherAPI import get_weather_data
 from django.views.decorators.csrf import csrf_exempt
+from home.AI_Model.ai_train import predict_fire
 
 #----------------------------------------------------------------------------
 def kelvin_to_celsius(kelvin):
@@ -114,8 +115,14 @@ def home(request):
     # Convert Unix time to human-readable format
     weather_data['sys']['sunrise'] = unix_to_human_readable(weather_data['sys']['sunrise'])
     weather_data['sys']['sunset'] = unix_to_human_readable(weather_data['sys']['sunset'])
-    
+
+    # predicting model using croped image from the map of the user location
+    map_image_instance = Map.objects.latest('created_at')
+    image_path = map_image_instance.map_image.url
+    # result = predict_fire(image_path)
+
     context={
         'weather_data':weather_data,
+        # 'result':result,
     }
     return render(request,'home/app/home.html',context)

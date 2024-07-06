@@ -98,6 +98,8 @@ def loading(request):
         # print(latitude)
         # print(longitude)
         request.session['weather_data'] = weather_data
+        request.session['latitude'] = latitude
+        request.session['longitude'] = longitude
         return redirect("home:home")
     else:
         latitude = 22.7179
@@ -107,6 +109,8 @@ def loading(request):
 
 def home(request):
     weather_data = request.session.get('weather_data')
+    latitude = request.session.get('latitude')
+    longitude = request.session.get('longitude')
 
     # Convert temperatures to Celsius
     weather_data['main']['temp'] = kelvin_to_celsius(weather_data['main']['temp'])
@@ -119,10 +123,22 @@ def home(request):
     # predicting model using croped image from the map of the user location
     map_image_instance = Map.objects.latest('created_at')
     image_path = map_image_instance.map_image.url
-    result = predict_fire(image_path)
+    # result = predict_fire(image_path)
 
     context={
         'weather_data':weather_data,
-        'result':result,
+        'latest_croped_image':image_path,
+        'longitude':longitude,
+        'latitude':latitude,
+        # 'result':result,
     }
     return render(request,'home/app/home.html',context)
+
+def mapview(request):
+    latitude = request.session.get('latitude')
+    longitude = request.session.get('longitude')
+    context={
+        'longitude':longitude,
+        'latitude':latitude,
+    }
+    return render(request,'home/app/map.html',context)

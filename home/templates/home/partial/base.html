@@ -6,6 +6,43 @@
 {% endblock appstyling %}
 
 {% block mainapp %}
+<!-- navbar -->
+<div class="navbar sticky" id="navbar">
+  <div class="logo">
+      <a href="#" style="font-size: 20px;">Wildfire</a>
+  </div>
+  <div class="nav-links pc-navlinks">
+      <a href="{% url 'userauths:sign-out' %}">Logout</a>
+      <a href="{% url 'home:map' %}">Map</a>
+      <a href="{% url 'home:home' %}">Home</a>
+  </div>
+  <div class="nav-links mobile-navlinks">
+      <a href="#">Login</a>
+      <a href="{% url 'home:map' %}">Map</a>
+      <a href="{% url 'home:home' %}">Home</a>
+  </div>
+
+  <div class="mobile-menu-toggle">
+      <div class="hamburger-menu">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+      </div>
+  </div>
+</div>
+<script>
+  document.querySelector('.hamburger-menu').addEventListener('click', function () {
+      var links = document.querySelector(".mobile-navlinks");
+      var hamburger = document.querySelector(".hamburger-menu");
+      if (links.style.display === "flex") {
+          links.style.display = "none";
+          hamburger.classList.remove("cross");
+      } else {
+          links.style.display = "flex";
+          hamburger.classList.add("cross");
+      }
+  });
+</script>
   {% block index %}
   {% endblock index %}
 {% endblock mainapp %}

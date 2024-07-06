@@ -10,6 +10,10 @@
 {% if request.path == "/user/sign-in/" or request.path == "/user/sign-up/" %}
 style="background-image: url('../../../static/userauths/images/forest.jpeg');background-size: cover;background-position: center;"
 {% endif %}
+
+{% if request.path == "/home/" %}
+style="background-image: url('../../../static/home/images/foressthome.jpeg');background-size: cover;background-position: center;min-height: 100vh;"
+{% endif %}
 >
     {% block mainapp %}
     {% endblock mainapp %}

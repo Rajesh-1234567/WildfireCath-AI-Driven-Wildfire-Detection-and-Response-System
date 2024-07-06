@@ -1,8 +1,15 @@
-/* content */
-.container-content{
-    padding-left: 80px;
-    padding-top: 30px;
-}
+
 .container-content *{
     color: black;
+}
+
+.croped_image{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding-left: 10px;
+}
+
+.weather_{
+    padding-top: 80px;
 }

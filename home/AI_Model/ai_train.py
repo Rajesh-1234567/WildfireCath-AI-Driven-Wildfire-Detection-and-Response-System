@@ -1,11 +1,9 @@
 import cv2
 import numpy as np
-from tensorflow.keras.models import load_model
+# from tensorflow.keras.models import load_model
 
-import tensorflow as tf
-print(tf.reduce_sum(tf.random.normal([1000, 1000])))
 # Load the pre-trained model
-model = load_model('fire_detection_model.h5')
+model = ('fire_detection_model.h5')
 
 def predict_fire(image_path):
     """

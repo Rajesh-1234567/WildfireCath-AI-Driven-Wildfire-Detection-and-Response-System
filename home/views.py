@@ -119,10 +119,10 @@ def home(request):
     # predicting model using croped image from the map of the user location
     map_image_instance = Map.objects.latest('created_at')
     image_path = map_image_instance.map_image.url
-    # result = predict_fire(image_path)
+    result = predict_fire(image_path)
 
     context={
         'weather_data':weather_data,
-        # 'result':result,
+        'result':result,
     }
     return render(request,'home/app/home.html',context)

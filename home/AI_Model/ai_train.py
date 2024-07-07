@@ -1,9 +1,9 @@
 import cv2
 import numpy as np
-# from tensorflow.keras.models import load_model
+from tensorflow.keras.models import load_model
 
 # Load the pre-trained model
-model = ('fire_detection_model.h5')
+model = load_model('home/AI_Model/fire_detection_model.h5')
 
 def predict_fire(image_path):
     """

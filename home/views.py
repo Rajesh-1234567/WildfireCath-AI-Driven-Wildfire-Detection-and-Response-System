@@ -4,6 +4,10 @@ from home.api_calls.weatherAPI import get_weather_data
 from django.views.decorators.csrf import csrf_exempt
 from home.AI_Model.ai_train import predict_fire
 
+from django.core.files.base import ContentFile
+from django.conf import settings
+import os
+
 #----------------------------------------------------------------------------
 def kelvin_to_celsius(kelvin):
     return kelvin - 273.15
@@ -87,16 +91,15 @@ def loading(request):
     if request.method == "POST":
         latitude = request.POST.get('latitude')
         longitude = request.POST.get('longitude')
-        weather_data=get_weather_data(latitude,longitude)
+        weather_data = get_weather_data(latitude, longitude)
 
         api_key = 'WeDkOLJgAzvafGXb9MVB'
         map_image_io = generate_map_image(latitude, longitude, api_key)
         
         # Create and save Map instance
         map_instance = Map()
-        map_instance.map_image.save(f"map_{latitude}_{longitude}.png", map_image_io, save=True)
-        # print(latitude)
-        # print(longitude)
+        map_instance.map_image.save(f"map_{latitude}_{longitude}.png", ContentFile(map_image_io.read()), save=True)
+        
         request.session['weather_data'] = weather_data
         request.session['latitude'] = latitude
         request.session['longitude'] = longitude
@@ -104,8 +107,7 @@ def loading(request):
     else:
         latitude = 22.7179
         longitude = 75.8333
-    return render(request,'home/app/loading_page.html')
-
+    return render(request, 'home/app/loading_page.html')
 
 def home(request):
     weather_data = request.session.get('weather_data')
@@ -120,25 +122,31 @@ def home(request):
     weather_data['sys']['sunrise'] = unix_to_human_readable(weather_data['sys']['sunrise'])
     weather_data['sys']['sunset'] = unix_to_human_readable(weather_data['sys']['sunset'])
 
-    # predicting model using croped image from the map of the user location
+    # Predicting model using cropped image from the map of the user location
     map_image_instance = Map.objects.latest('created_at')
-    image_path = map_image_instance.map_image.url
-    # result = predict_fire(image_path)
-
-    context={
-        'weather_data':weather_data,
-        'latest_croped_image':image_path,
-        'longitude':longitude,
-        'latitude':latitude,
-        # 'result':result,
+    image_path = os.path.join(settings.MEDIA_ROOT, map_image_instance.map_image.name)
+    
+    try:
+        result = predict_fire(image_path)
+    except ValueError as e:
+        result = str(e)
+    
+    context = {
+        'weather_data': weather_data,
+        'latest_cropped_image': map_image_instance.map_image.url,
+        'longitude': longitude,
+        'latitude': latitude,
+        'result': result,
     }
-    return render(request,'home/app/home.html',context)
+    return render(request, 'home/app/home.html', context)
 
 def mapview(request):
     latitude = request.session.get('latitude')
     longitude = request.session.get('longitude')
-    context={
-        'longitude':longitude,
-        'latitude':latitude,
+    api_key = 'WeDkOLJgAzvafGXb9MVB'
+    context = {
+        'longitude': longitude,
+        'latitude': latitude,
+        'api_key_map': api_key,
     }
-    return render(request,'home/app/map.html',context)
+    return render(request, 'home/app/map.html', context)

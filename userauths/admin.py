@@ -8,6 +8,6 @@ class UserAdmin(admin.ModelAdmin):
 admin.site.register(User,UserAdmin)
 
 
-class ProfileAdmin():
+class ProfileAdmin(admin.ModelAdmin):
     list_display=['user']
 admin.site.register(Profile,ProfileAdmin)

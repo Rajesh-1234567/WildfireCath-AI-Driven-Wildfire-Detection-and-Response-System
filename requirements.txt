@@ -17,7 +17,6 @@ debugpy==1.8.2
 decorator==5.1.1
 diff-match-patch==20230430
 Django==5.0.6
-django-import-export==4.1.0
 django-jazzmin==3.0.0
 exceptiongroup==1.2.1
 executing==2.0.1
@@ -110,7 +109,6 @@ tenacity==8.4.2
 tensorboard==2.16.2
 tensorboard-data-server==0.7.2
 tensorflow==2.16.2
-tensorflow-io-gcs-filesystem==0.37.1
 termcolor==2.4.0
 toml==0.10.2
 toolz==0.12.1

@@ -25,8 +25,10 @@ SECRET_KEY = 'django-insecure-pyw$*=9^fckl8jqh#o*s*lbwn)(a67%v+u(2z6xe9m+*9%)nq%
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ['https://wildfire.azurewebsites.net','https://127.0.0.1']
+
+
 
 
 # Application definition
@@ -40,9 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    # django import and export database in suitable formats csv,excel and many others
-    'import_export',
 
     # installed authentication app
     'userauths',

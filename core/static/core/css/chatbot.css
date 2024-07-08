@@ -4,7 +4,7 @@
     bottom: 1vw;
     right: 1vw;
     z-index: 10005;
-    width: 40em;
+    max-width: 420px;
     border: 2px solid #83350b;
     border-radius: .3em;
 }
@@ -123,7 +123,7 @@
     -o-transform: translate(0, 0);
     transform: translate(0, 0);
     padding: 10px;
-    height: 250px;
+    height: 70vh;
     overflow: auto;
 }
 

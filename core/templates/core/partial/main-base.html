@@ -22,7 +22,8 @@ style="background-image: url('../../../static/home/images/foressthome.jpeg');bac
     <div class="chatbot_btn" onclick="turnChat()">
         <span class="material-symbols-outlined" style="font-size: 1.7em;">contact_support</span>
     </div>
-    <div class="page-content page-container" id="page-content">
+    
+    <div class="page-content page-container" id="page-content" style="display: none;">
         <div class="col-md-12">
             <div class="box box-warning direct-chat direct-chat-warning" style="border-radius: .4em; margin: 0;">
                 <div class="box-header with-border">
@@ -32,7 +33,7 @@ style="background-image: url('../../../static/home/images/foressthome.jpeg');bac
                     </div>
                 </div>
                 <div class="box-body">
-                    <div class="direct-chat-messages">
+                    <div class="direct-chat-messages" id="chat-messages">
                         <div class="direct-chat-msg">
                             <div class="direct-chat-info clearfix">
                                 <span class="direct-chat-name pull-left">Assistant</span>
@@ -54,27 +55,27 @@ style="background-image: url('../../../static/home/images/foressthome.jpeg');bac
                 </div>
             </div>
         </div>
-    </div>
+    </div>    
 
     <script>
         const chatToggle = document.querySelector('.page-content');
         const chatbtnToggle = document.querySelector('.chatbot_btn');
         const sendMessageUrl = "{% url 'core:send_message' %}";
-
+    
         function turnChat() {
             chatToggle.style.display = "block";
             chatbtnToggle.style.display = "none";
         }
-
+    
         function offChat() {
             chatToggle.style.display = "none";
             chatbtnToggle.style.display = "block";
         }
-
+    
         function sendMessage() {
             const userInput = document.getElementById('user-input').value;
-            const chatDisplay = document.querySelector('.direct-chat-messages');
-
+            const chatDisplay = document.getElementById('chat-messages');
+    
             // Display user's message
             chatDisplay.innerHTML += `
                 <div class="direct-chat-msg right">
@@ -86,7 +87,10 @@ style="background-image: url('../../../static/home/images/foressthome.jpeg');bac
                         <div class="direct-chat-text">${userInput}</div>
                     </div>
                 </div>`;
-
+    
+            // Clear input field
+            document.getElementById('user-input').value = '';
+    
             // Send message to backend
             fetch(sendMessageUrl, {
                 method: 'POST',
@@ -98,6 +102,12 @@ style="background-image: url('../../../static/home/images/foressthome.jpeg');bac
             })
             .then(response => response.json())
             .then(data => {
+                // Replace newlines with <br> for proper HTML rendering
+                let assistantReply = data.reply.replace(/\n/g, '<br>');
+    
+                // Replace **text** with <b>text</b> for bold text rendering
+                assistantReply = assistantReply.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+    
                 // Display assistant's response
                 chatDisplay.innerHTML += `
                     <div class="direct-chat-msg">
@@ -106,13 +116,13 @@ style="background-image: url('../../../static/home/images/foressthome.jpeg');bac
                         </div>
                         <img loading="lazy" class="direct-chat-img" src="../../../static/core/image/bot.jpeg" alt="message user image">
                         <div class="chat-display">
-                            <div class="direct-chat-text">${data.reply}</div>
+                            <div class="direct-chat-text">${assistantReply}</div>
                         </div>
                     </div>`;
             })
             .catch(error => console.error('Error:', error));
         }
-
+    
         // CSRF token for Django
         function getCookie(name) {
             let cookieValue = null;
@@ -129,6 +139,8 @@ style="background-image: url('../../../static/home/images/foressthome.jpeg');bac
             return cookieValue;
         }
     </script>
+    
+    
 
 </body>
     {% include "core/elements/main-script.html" %}

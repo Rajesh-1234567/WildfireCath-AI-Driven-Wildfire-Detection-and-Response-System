@@ -19,9 +19,7 @@ load_dotenv()
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 # Prompt for the GenerativeModel
-prompt = """You are the safety advisor specialized in forest fires, wildfires, and disaster management. 
-Provide essential tips and information on prevention, safety protocols during emergencies. 
-Concise tips within 250 words. Answer questions related to fire safety and disaster management."""
+prompt = """You are a professional advisor specializing in wildfire prevention and the health effects caused by wildfires. Provide concise and beneficial information on wildfire prevention strategies, health impacts, and related topics within 250 words"""
 
 # Function to generate content using Gemini Pro
 def generate_gemini_content(transcript_text, prompt):

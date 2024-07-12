@@ -85,4 +85,4 @@ urllib3==2.2.2
 Werkzeug==3.0.3
 whitenoise==6.7.0
 wrapt==1.16.0
-
+nvidia-tensorrt

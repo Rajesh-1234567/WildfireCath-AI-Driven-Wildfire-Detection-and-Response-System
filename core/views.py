@@ -29,20 +29,6 @@ def generate_gemini_content(transcript_text, prompt):
     response = model.generate_content(prompt + transcript_text)
     return response.text
 
-# Streamlit UI
-st.title("WildFireCatch 💨🔥 Ask your disaster-related issues and tips")
-text = st.text_area("Enter Your Transcript Text:")
-
-if st.button("Get Detailed Notes"):
-    if text:
-        summary = generate_gemini_content(text, prompt)
-        st.markdown("## Detailed Notes:")
-        st.write(summary)
-    else:
-        st.warning("Please enter some text to generate detailed notes.")
-
-
-
 def welcome(request):
     teamdetails=TeamModel.objects.all()
     context={

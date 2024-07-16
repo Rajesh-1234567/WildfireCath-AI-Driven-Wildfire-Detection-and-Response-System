@@ -4,7 +4,7 @@
 
 ## Data set Link - https://www.kaggle.com/datasets/abdelghaniaaba/wildfire-prediction-dataset
 
-## Google colab - https://github.com/Rajesh-1234567/WildfireCath-AI-Driven-Wildfire-Detection-and-Response-System
+## Google colab - https://colab.research.google.com/drive/19VZK6VSiMGP5gxGrWsYkdciatFNyOpmD?usp=sharing
 
 Certainly! Here's an expanded section in the README focusing on the benefits, positive impacts, and how WildfireCatch can help:
 

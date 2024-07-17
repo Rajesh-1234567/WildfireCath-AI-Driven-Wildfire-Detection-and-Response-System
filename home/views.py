@@ -8,6 +8,37 @@ from django.conf import settings
 import os
 
 from .forms import ImageUploadForm
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.conf import settings
+from email.mime.image import MIMEImage
+
+def send_wildfire_result_email(to_email, result, image_path):
+    subject = 'Wildfire Detection Result'
+    from_email = settings.EMAIL_HOST_USER
+    to = to_email
+
+    html_content = render_to_string('home/app/email.html', {'result': result})
+    
+    msg = EmailMultiAlternatives(subject, '', from_email, [to])
+    msg.attach_alternative(html_content, "text/html")
+
+    # Attach the uploaded image
+    with open(image_path, 'rb') as f:
+        img = MIMEImage(f.read())
+        img.add_header('Content-ID', '<uploaded_image>')
+        img.add_header('Content-Disposition', 'inline', filename=os.path.basename(image_path))
+        msg.attach(img)
+
+    # Attach the logo image
+    logo_path = os.path.join(settings.STATIC_ROOT, 'assets/images/lightFav.png')
+    with open(logo_path, 'rb') as f:
+        logo = MIMEImage(f.read())
+        logo.add_header('Content-ID', '<logo_image>')
+        logo.add_header('Content-Disposition', 'inline', filename=os.path.basename(logo_path))
+        msg.attach(logo)
+
+    msg.send()
 
 #----------------------------------------------------------------------------
 def kelvin_to_celsius(kelvin):
@@ -57,7 +88,8 @@ def home(request):
                     destination.write(chunk)
 
             result = predict_fire(image_path)
-            return render(request, 'result.html', {'result': result, 'image_path': image_path})
+            send_wildfire_result_email('anuragsingh6569201@gmail.com', result, image_path)
+            return render(request, 'home/app/result.html', {'result': result, 'image_path': image_path})
     else:
         form = ImageUploadForm()
 

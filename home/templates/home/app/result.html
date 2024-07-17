@@ -1,0 +1,23 @@
+{% extends 'home/partial/base.html' %}
+{% load static %}
+
+{% block index %}
+
+<div class="container result-container">
+    <h2 class="mt-5">Prediction Result</h2>
+    <div class="card result-card">
+        <img src="{{ MEDIA_URL }}{{ image_path }}" alt="Uploaded Image" class="image-preview mb-4">
+        {% if result == 'Fire' %}
+            <h3 class="fire">Alert: Fire Detected!</h3>
+            <p>The uploaded image shows signs of fire. Please take necessary precautions immediately.</p>
+            <p>Contact emergency services and follow safety protocols to ensure everyone's safety.</p>
+        {% else %}
+            <h3 class="no-fire">No Fire Detected</h3>
+            <p>The uploaded image does not show any signs of fire. Stay vigilant and safe.</p>
+            <p>Ensure regular checks and maintain safety measures to prevent any fire hazards.</p>
+        {% endif %}
+        <a href="{% url 'image_upload' %}" class="btn btn-primary mt-4">Upload Another Image</a>
+    </div>
+</div>
+
+{% endblock index %}

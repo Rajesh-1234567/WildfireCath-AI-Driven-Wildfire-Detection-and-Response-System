@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wildfire Detection Results</title>
+    <style>
+        .result-container {
+            margin: 20px;
+            text-align: center;
+        }
+        .result-card {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .fire {
+            color: red;
+        }
+        .no-fire {
+            color: green;
+        }
+        .image-preview {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div style="background-color: #f4f4f4; padding: 20px;">
+        <img style="width: 100%;align-self: center;" src="cid:logo_image" alt="Website Logo">
+        <h1 style="color: #333; text-align: center;">Wildfire Detection Result</h1>
+        <h2 style="color: #333; text-align: center;">Here is the result of your uploaded image:</h2>
+        <hr style="border-top: 1px solid #999;">
+        <div class="result-container">
+            <div class="card result-card">
+                <img src="cid:uploaded_image" alt="Uploaded Image" class="image-preview mb-4">
+                {% if result == 'Fire' %}
+                    <h3 class="fire">Alert: Fire Detected!</h3>
+                    <p>The uploaded image shows signs of fire. Please take necessary precautions immediately.</p>
+                    <p>Contact emergency services and follow safety protocols to ensure everyone's safety.</p>
+                {% else %}
+                    <h3 class="no-fire">No Fire Detected</h3>
+                    <p>The uploaded image does not show any signs of fire. Stay vigilant and safe.</p>
+                    <p>Ensure regular checks and maintain safety measures to prevent any fire hazards.</p>
+                {% endif %}
+            </div>
+        </div>
+        <hr style="border-top: 1px solid #999;">
+        <p style="text-align: center; color: #777;">Thank you for using our service!</p>
+    </div>
+</body>
+</html>

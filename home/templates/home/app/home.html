@@ -75,12 +75,35 @@
                                     <h5 class="card-title" style="text-align: left;">Custom Checking</h5>
                                     <p class="card-text">This is the model evaluation of your picked location <br> Crop
                                         the image from the hybrid map!!</p>
-                                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins
-                                            ago</small></p>
+                                    <p class="card-text"><small class="text-body-secondary">Last updated</small></p>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card-body Prediction-body">
+                                <div class="container result-container">
+                                    {% if result %}
+                                    <h5><b>Prediction Result</b></h5>
+                                    <div>
+                                        <img src="{{ MEDIA_URL }}{{ image_path }}" alt="Uploaded Image" class="image-preview mb-4">
+                                        {% if result == 'Fire' %}
+                                            <h5 class="fire"><b>Alert: Fire Detected!</b></h5>
+                                            <p>The uploaded image shows signs of fire. Please take necessary precautions immediately.</p>
+                                            <p>Contact emergency services and follow safety protocols to ensure everyone's safety.</p>
+                                        {% else %}
+                                            <h5 class="no-fire"><b>No Fire Detected</b></h5>
+                                            <p>The uploaded image does not show any signs of fire. Stay vigilant and safe.</p>
+                                            <p>Ensure regular checks and maintain safety measures to prevent any fire hazards.</p>
+                                        {% endif %}
+                                    </div>
+                                    {% else %}
+                                    <style>
+                                        .Prediction-body{
+                                            padding: 0;
+                                        }
+                                    </style>
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
                     </div>

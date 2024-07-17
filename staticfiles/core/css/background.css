@@ -1,0 +1,43 @@
+*{
+    scroll-behavior: smooth;
+    scroll-padding: 20px;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+}
+body{
+    position: relative;
+}
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #202c33;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #445561;
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #556a79;
+}
+
+/* Small stars background */
+
+.background video {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+}

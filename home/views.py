@@ -30,14 +30,6 @@ def send_wildfire_result_email(to_email, result, image_path):
         img.add_header('Content-Disposition', 'inline', filename=os.path.basename(image_path))
         msg.attach(img)
 
-    # Attach the logo image
-    logo_path = os.path.join(settings.STATIC_ROOT, 'assets/images/lightFav.png')
-    with open(logo_path, 'rb') as f:
-        logo = MIMEImage(f.read())
-        logo.add_header('Content-ID', '<logo_image>')
-        logo.add_header('Content-Disposition', 'inline', filename=os.path.basename(logo_path))
-        msg.attach(logo)
-
     msg.send()
 
 #----------------------------------------------------------------------------
@@ -89,7 +81,15 @@ def home(request):
 
             result = predict_fire(image_path)
             send_wildfire_result_email('anuragsingh6569201@gmail.com', result, image_path)
-            return render(request, 'home/app/result.html', {'result': result, 'image_path': image_path})
+            context = {
+                'form':form,
+                'weather_data': weather_data,
+                'longitude': longitude,
+                'latitude': latitude,
+                'result': result, 
+                'image_path': image_path,
+            }
+            return render(request, 'home/app/home.html',context)
     else:
         form = ImageUploadForm()
 

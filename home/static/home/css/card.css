@@ -4,7 +4,6 @@
   align-items: center;
   justify-content: right;
   height: 16em;
-  z-index: 10000;
 }
 
 .card {
@@ -49,7 +48,7 @@
 }
 
 .card:hover+.card2 {
-  height: 300px;
+  height: 265px;
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
 }

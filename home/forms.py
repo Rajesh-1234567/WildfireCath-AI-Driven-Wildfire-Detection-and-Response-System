@@ -1,7 +1,4 @@
 from django import forms
-from .models import Map
 
-class MapForm(forms.ModelForm):
-    class Meta:
-        model = Map
-        fields = ['latitude', 'longitude']
+class ImageUploadForm(forms.Form):
+    image = forms.ImageField()

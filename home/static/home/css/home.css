@@ -12,3 +12,49 @@
 .weather_{
     padding-top: 80px;
 }
+
+#id_image{
+    z-index: 10005;
+    width: 100%;
+    height: 20vh;
+    cursor: pointer;
+    opacity: 0;
+}
+.croped_image label{
+    display: none;
+}
+.croped_image{
+    overflow: hidden;
+    position: relative;
+}
+.image_upload_btn{
+    border: 1px solid grey;
+    background-color: transparent;
+    width: 80%;
+    padding: 10px 15px;
+    color: brown;
+    font-weight: 600;
+    border-radius: 10px;
+}
+.croped_image form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.image_upload_btn:hover{
+    background-color: brown;
+    color: white;
+    transition: .4s;
+}
+.image_getting_temp{
+    position: absolute;
+    top: 3em;
+    margin: auto;
+    text-align: center;
+}
+.image_getting_temp img{
+    width: 7em;
+    border: 1px solid rgb(54, 125, 207);
+    border-radius: 5px;
+}

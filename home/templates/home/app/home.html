@@ -2,6 +2,43 @@
 {% load static %}
 
 {% block index %}
+<!-- navbar -->
+<div class="navbar sticky" id="navbar">
+    <div class="logo">
+        <a href="#" style="font-size: 20px;">Wildfire</a>
+    </div>
+    <div class="nav-links pc-navlinks">
+        <a href="{% url 'userauths:sign-out' %}">Logout</a>
+        <a href="{% url 'home:map' %}">Map</a>
+        <a href="{% url 'home:home' %}">Home</a>
+    </div>
+    <div class="nav-links mobile-navlinks">
+        <a href="#">Login</a>
+        <a href="{% url 'home:map' %}">Map</a>
+        <a href="{% url 'home:home' %}">Home</a>
+    </div>
+
+    <div class="mobile-menu-toggle">
+        <div class="hamburger-menu">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </div>
+</div>
+<script>
+    document.querySelector('.hamburger-menu').addEventListener('click', function () {
+        var links = document.querySelector(".mobile-navlinks");
+        var hamburger = document.querySelector(".hamburger-menu");
+        if (links.style.display === "flex") {
+            links.style.display = "none";
+            hamburger.classList.remove("cross");
+        } else {
+            links.style.display = "flex";
+            hamburger.classList.add("cross");
+        }
+    });
+</script>
 <script>
     window.onload = function () {
         if (navigator.geolocation) {
@@ -24,45 +61,35 @@
                     <div class="card mb-3 ai_model" style="width: 540px;height: fit-content;z-index: 100;">
                         <div class="row g-0">
                             <div class="col-md-4 croped_image">
-                                <img src="{{ latest_cropped_image }}" class="img-fluid rounded-start" alt="..." style="border-radius: 10px;">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title" style="text-align: left;">Default Model</h5>
-                                    <p class="card-text">This is the model evaluation of your location <br> Showing thier prediction of fire or not in your area!!</p>
-                                    <p class="card-text"><small class="text-body-secondary">{{ result }}</small></p>
+                                <div class="image_getting_temp">
+                                    <img src="../../../static/home/images/image.png" alt="">
                                 </div>
-                            </div>
-                            <div class="col-md-12">
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="card mb-3 ai_model" style="width: 540px;height: fit-content;z-index: 100;">
-                        <div class="row g-0">
-                            <div class="col-md-4 croped_image">
-                                <img src="{{ latest_cropped_image }}" class="img-fluid rounded-start" alt="..." style="border-radius: 10px;">
+                                <form method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {{ form.as_p }}
+                                    <button class="image_upload_btn" type="submit">Upload</button>
+                                </form>
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
                                     <h5 class="card-title" style="text-align: left;">Custom Checking</h5>
-                                    <p class="card-text">This is the model evaluation of your picked location <br> Crop the image from the hybrid map like this!!</p>
-                                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                                    <p class="card-text">This is the model evaluation of your picked location <br> Crop
+                                        the image from the hybrid map like this!!</p>
+                                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins
+                                            ago</small></p>
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <div class="cardm">
-            
+
             <div class="card">
                 <svg class="weather" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100px" height="100px"

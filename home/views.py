@@ -62,6 +62,8 @@ def home(request):
     weather_data = request.session.get('weather_data')
     latitude = request.session.get('latitude')
     longitude = request.session.get('longitude')
+    image_filename = None
+    result=0
 
     # Convert temperatures to Celsius
     weather_data['main']['temp'] = kelvin_to_celsius(weather_data['main']['temp'])
@@ -75,6 +77,7 @@ def home(request):
         form = ImageUploadForm(request.POST, request.FILES)
         if form.is_valid():
             image = form.cleaned_data['image']
+            image_filename = image.name
             image_path = os.path.join(settings.MEDIA_ROOT, image.name)
             
             with open(image_path, 'wb+') as destination:
@@ -83,25 +86,18 @@ def home(request):
             
             result = predict_fire(image_path)
             user_emails = User.objects.all()  # Assuming User is your model
+            print(image_filename)
             send_wildfire_result_email(user_emails, result, image_path)
-            
-            context = {
-                'form': form,
-                'weather_data': weather_data,
-                'longitude': longitude,
-                'latitude': latitude,
-                'result': result,
-                'image_path': image_path,
-            }
-            return render(request, 'home/app/home.html', context)
     else:
         form = ImageUploadForm()
-
+        
     context = {
         'form':form,
+        'result': result,
         'weather_data': weather_data,
         'longitude': longitude,
         'latitude': latitude,
+        'image_path': image_filename,
     }
     return render(request, 'home/app/home.html', context)
 

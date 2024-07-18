@@ -83,9 +83,10 @@
                             <div class="card-body Prediction-body">
                                 <div class="container result-container">
                                     {% if result %}
+                                    <hr style="padding: 0;margin-top: 0;">
                                     <h5><b>Prediction Result</b></h5>
                                     <div>
-                                        <img src="{{ MEDIA_URL }}{{ image_path }}" alt="Uploaded Image" class="image-preview mb-4">
+                                        <img style="border-radius: 10px;" src="../media/{{ image_path }}" alt="Uploaded Image" class="image-preview mb-4">
                                         {% if result == 'Fire' %}
                                             <h5 class="fire"><b>Alert: Fire Detected!</b></h5>
                                             <p>The uploaded image shows signs of fire. Please take necessary precautions immediately.</p>

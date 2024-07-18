@@ -141,3 +141,4 @@ whitenoise
 wrapt
 wsproto
 youtube-transcript-api
+pip

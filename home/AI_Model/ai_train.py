@@ -24,7 +24,7 @@ def predict_fire(image_path):
     prediction = model.predict(img)
 
     # Determine the result
-    result = 1 if prediction[0][0] > 0.5 else 0
+    result = 'Fire' if prediction[0][0] > 0.5 else 'No Fire'
 
     return result
 

@@ -12,25 +12,27 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.conf import settings
 from email.mime.image import MIMEImage
+from userauths.models import User
 
-def send_wildfire_result_email(to_email, result, image_path):
+def send_wildfire_result_email(user_emails, result, image_path):
     subject = 'Wildfire Detection Result'
     from_email = settings.EMAIL_HOST_USER
-    to = to_email
-
-    html_content = render_to_string('home/app/email.html', {'result': result})
     
-    msg = EmailMultiAlternatives(subject, '', from_email, [to])
-    msg.attach_alternative(html_content, "text/html")
-
-    # Attach the uploaded image
-    with open(image_path, 'rb') as f:
-        img = MIMEImage(f.read())
-        img.add_header('Content-ID', '<uploaded_image>')
-        img.add_header('Content-Disposition', 'inline', filename=os.path.basename(image_path))
-        msg.attach(img)
-
-    msg.send()
+    for user_email in user_emails:
+        to_email = user_email.email  # Assuming 'email' is the field name
+        html_content = render_to_string('home/app/email.html', {'result': result})
+        
+        msg = EmailMultiAlternatives(subject, '', from_email, [to_email])
+        msg.attach_alternative(html_content, "text/html")
+        
+        # Attach the uploaded image
+        with open(image_path, 'rb') as f:
+            img = MIMEImage(f.read())
+            img.add_header('Content-ID', '<uploaded_image>')
+            img.add_header('Content-Disposition', 'inline', filename=os.path.basename(image_path))
+            msg.attach(img)
+        
+        msg.send()
 
 #----------------------------------------------------------------------------
 def kelvin_to_celsius(kelvin):
@@ -78,18 +80,20 @@ def home(request):
             with open(image_path, 'wb+') as destination:
                 for chunk in image.chunks():
                     destination.write(chunk)
-
+            
             result = predict_fire(image_path)
-            send_wildfire_result_email('anuragsingh6569201@gmail.com', result, image_path)
+            user_emails = User.objects.all()  # Assuming User is your model
+            send_wildfire_result_email(user_emails, result, image_path)
+            
             context = {
-                'form':form,
+                'form': form,
                 'weather_data': weather_data,
                 'longitude': longitude,
                 'latitude': latitude,
-                'result': result, 
+                'result': result,
                 'image_path': image_path,
             }
-            return render(request, 'home/app/home.html',context)
+            return render(request, 'home/app/home.html', context)
     else:
         form = ImageUploadForm()
 

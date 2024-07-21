@@ -1,4 +1,4 @@
-# WildfireCatch - An AI Driven Wildfire Detection and Response System
+# WildFireCatch (An AI Driven Wildfire Detection and Rapid Response and Alarm System through Satellite images)
 <img src="image.png" alt="ForestFire image" width="1000" height="500">
 
 
